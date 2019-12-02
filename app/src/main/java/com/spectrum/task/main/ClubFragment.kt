@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.spectrum.task.R
 import com.spectrum.task.adapter.CompanyAdapter
 import com.spectrum.task.databinding.ClubFragmentBinding
-
+import kotlinx.android.synthetic.main.club_fragment.*
+import kotlinx.android.synthetic.main.sort_layout.view.*
 
 class ClubFragment : Fragment() {
 
@@ -39,6 +42,7 @@ class ClubFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ClubViewModel::class.java)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
         setupListAdapter()
+        setFilter()
     }
 
     /**
@@ -121,5 +125,48 @@ class ClubFragment : Fragment() {
         viewDataBinding.noData.visibility = View.VISIBLE
         viewDataBinding.progressBar.visibility = View.GONE
     }
+
+    private fun setFilter() {
+        filterFAB.setOnClickListener {
+            setAlertDialog()
+        }
+    }
+
+    private fun setAlertDialog() {
+        /**
+         * Inflate the dialog with custom view
+         */
+        val mDialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.sort_layout, null)
+        /**
+         *  AlertDialogBuilder
+         */
+        val mBuilder = AlertDialog.Builder(requireActivity())
+            .setView(mDialogView)
+            .setTitle("Sorting By Name")
+        /**
+         *  show dialog
+         */
+        val mAlertDialog = mBuilder.show()
+        /**
+         * login button click of custom layout
+         */
+        mDialogView.dialogAscending.setOnClickListener {
+            mAlertDialog.dismiss()
+            if (!viewModel.companyList.value.isNullOrEmpty()) {
+                (viewDataBinding.companyList.adapter as CompanyAdapter).submitList(
+                    viewModel.companyList.value!!.sortedBy { it.company }
+                )
+            }
+        }
+        mDialogView.dialogDescending.setOnClickListener {
+            mAlertDialog.dismiss()
+            if (!viewModel.companyList.value.isNullOrEmpty()) {
+                (viewDataBinding.companyList.adapter as CompanyAdapter).submitList(
+                    viewModel.companyList.value!!.sortedByDescending { it.company }
+                )
+            }
+        }
+    }
+
 
 }

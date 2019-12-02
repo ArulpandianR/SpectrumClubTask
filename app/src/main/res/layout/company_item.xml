@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <import type="android.widget.CompoundButton" />
+
         <variable
             name="company"
             type="com.spectrum.task.model.ClubCompany" />
@@ -81,8 +83,9 @@
                 android:id="@+id/about"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:gravity="center"
+                android:gravity="left"
                 android:paddingBottom="10dp"
                 android:text="@{company.about}"
                 app:layout_constraintStart_toStartOf="parent"
