@@ -1,4 +1,4 @@
-package com.spectrum.clubtask
+package com.spectrum.task
 
 import org.junit.Test
 
