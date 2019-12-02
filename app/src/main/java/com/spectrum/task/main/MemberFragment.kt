@@ -12,13 +12,19 @@ import androidx.lifecycle.ViewModelProviders
 import com.spectrum.task.R
 import com.spectrum.task.adapter.MemberAdapter
 import com.spectrum.task.databinding.MemberFragmentBinding
+import com.spectrum.task.model.Member
 import kotlinx.android.synthetic.main.member_fragment.*
 import kotlinx.android.synthetic.main.member_sort_layout.view.*
 
 class MemberFragment : Fragment() {
 
     companion object {
-        fun newInstance() = MemberFragment()
+        private const val ARG_MEMBERS = "member"
+        fun newInstance(memberList: ArrayList<Member>) = MemberFragment().apply {
+            arguments = Bundle().apply {
+                putParcelableArrayList(ARG_MEMBERS, memberList)
+            }
+        }
     }
 
     private lateinit var viewDataBinding: MemberFragmentBinding
@@ -34,6 +40,7 @@ class MemberFragment : Fragment() {
         viewDataBinding = MemberFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = viewModel
         }
+
         return viewDataBinding.root
     }
 
@@ -42,6 +49,10 @@ class MemberFragment : Fragment() {
         setHasOptionsMenu(true)
         viewModel = ViewModelProviders.of(this).get(MemberViewModel::class.java)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
+
+        val memberList = arguments?.getParcelableArrayList<Member>(ARG_MEMBERS)
+        viewModel.memberList.value = memberList
+
         setupListAdapter()
         setFilter()
     }
@@ -81,33 +92,6 @@ class MemberFragment : Fragment() {
                 return false
             }
         })
-    }
-
-    /**
-     * To show progress bar when network call started
-     */
-    private fun showProgressBar() {
-        viewDataBinding.companyList.visibility = View.GONE
-        viewDataBinding.noData.visibility = View.GONE
-        viewDataBinding.progressBar.visibility = View.VISIBLE
-    }
-
-    /**
-     * To show Recycler view when network call success
-     */
-    private fun showRecycler() {
-        viewDataBinding.companyList.visibility = View.VISIBLE
-        viewDataBinding.noData.visibility = View.GONE
-        viewDataBinding.progressBar.visibility = View.GONE
-    }
-
-    /**
-     * To show no data found view when network call data has no data
-     */
-    private fun showDataFound() {
-        viewDataBinding.companyList.visibility = View.GONE
-        viewDataBinding.noData.visibility = View.VISIBLE
-        viewDataBinding.progressBar.visibility = View.GONE
     }
 
     private fun setFilter() {

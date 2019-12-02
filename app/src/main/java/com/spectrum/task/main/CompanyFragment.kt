@@ -12,11 +12,14 @@ import androidx.lifecycle.ViewModelProviders
 import com.spectrum.task.ClubHomeActivity
 import com.spectrum.task.R
 import com.spectrum.task.adapter.CompanyAdapter
+import com.spectrum.task.api.AdapterOnClick
 import com.spectrum.task.databinding.CompanyFragmentBinding
+import com.spectrum.task.model.ClubCompany
+import com.spectrum.task.model.Member
 import kotlinx.android.synthetic.main.company_fragment.*
 import kotlinx.android.synthetic.main.company_sort_layout.view.*
 
-class CompanyFragment : Fragment() {
+class CompanyFragment : Fragment(), AdapterOnClick {
 
     companion object {
         fun newInstance() = CompanyFragment()
@@ -51,7 +54,7 @@ class CompanyFragment : Fragment() {
      * Implemented CompanyAdapter List adapter
      */
     private fun setupListAdapter() {
-        companyAdapter = CompanyAdapter()
+        companyAdapter = CompanyAdapter(this)
         viewDataBinding.companyList.setHasFixedSize(true)
 
         viewModel?.companyList?.observe(this, androidx.lifecycle.Observer { list ->
@@ -182,8 +185,9 @@ class CompanyFragment : Fragment() {
         }
     }
 
-    fun showMemberFragment() {
-        (requireActivity() as ClubHomeActivity).showMemberFragment()
+    override fun onClick(item: Any) {
+        var memberList = ArrayList<Member>((item as ClubCompany).members)
+        (requireActivity() as ClubHomeActivity).showMemberFragment(memberList)
     }
 
 

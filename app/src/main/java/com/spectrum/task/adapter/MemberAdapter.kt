@@ -36,8 +36,8 @@ class MemberAdapter : RecyclerView.Adapter<MemberAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var viewHolder = holder
-        var company = differ.currentList[position]
-        viewHolder.setCompanyData(company)
+        var member = differ.currentList[position]
+        viewHolder.setCompanyData(member)
     }
 
     override fun getItemCount(): Int {

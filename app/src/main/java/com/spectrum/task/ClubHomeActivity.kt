@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.spectrum.task.main.CompanyFragment
 import com.spectrum.task.main.MemberFragment
+import com.spectrum.task.model.Member
 
 class ClubHomeActivity : AppCompatActivity() {
 
@@ -17,10 +18,11 @@ class ClubHomeActivity : AppCompatActivity() {
         }
     }
 
-    fun showMemberFragment() {
+    fun showMemberFragment(memberList: ArrayList<Member>) {
         supportFragmentManager.beginTransaction()
-            .add(R.id.container, MemberFragment.newInstance())
-            .commitNow()
+            .add(R.id.container, MemberFragment.newInstance(memberList))
+            .addToBackStack("member")
+            .commit()
     }
 
 }

@@ -8,11 +8,13 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.spectrum.task.R
+import com.spectrum.task.api.AdapterOnClick
 import com.spectrum.task.model.ClubCompany
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.company_item.view.*
 
-class CompanyAdapter : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
+class CompanyAdapter(val adapterOnClick: AdapterOnClick) :
+    RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
 
     private val callBack = object : DiffUtil.ItemCallback<ClubCompany>() {
 
@@ -51,7 +53,7 @@ class CompanyAdapter : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
     }
 
 
-    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun setCompanyData(clubCompany: ClubCompany) {
 
@@ -71,7 +73,12 @@ class CompanyAdapter : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
                 clubCompany.isFav = !clubCompany.isFav
                 setFav(clubCompany, itemView.favIcon)
             }
+
+            itemView.companyLayout.setOnClickListener {
+                adapterOnClick.onClick(clubCompany)
+            }
         }
+
 
         /** Update the ui only not updated to server  **/
         private fun setFollow(clubCompany: ClubCompany, followView: ImageView) {
