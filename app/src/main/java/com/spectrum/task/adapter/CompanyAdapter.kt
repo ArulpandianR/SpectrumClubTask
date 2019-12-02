@@ -60,34 +60,54 @@ class CompanyAdapter : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
             itemView.companyName.text = clubCompany.company
             itemView.about.text = clubCompany.about
             itemView.companyWebsite.text = clubCompany.website
-            setFav(clubCompany.isFav, itemView.follow)
-            setFollow(clubCompany.isfollowed, itemView.favIcon)
+            setFav(clubCompany, itemView.favIcon)
+            setFollow(clubCompany, itemView.follow)
 
             itemView.follow.setOnClickListener {
                 clubCompany.isfollowed = !clubCompany.isfollowed
-                setFollow(clubCompany.isfollowed, itemView.favIcon)
+                setFollow(clubCompany, itemView.follow)
             }
             itemView.favIcon.setOnClickListener {
                 clubCompany.isFav = !clubCompany.isFav
-                setFav(clubCompany.isFav, itemView.follow)
+                setFav(clubCompany, itemView.favIcon)
             }
         }
 
         /** Update the ui only not updated to server  **/
-        private fun setFollow(isFollowing: Boolean, followView: ImageView) {
-            if (isFollowing) {
+        private fun setFollow(clubCompany: ClubCompany, followView: ImageView) {
+            if (clubCompany.isfollowed) {
+              /*  Toast.makeText(
+                    followView.context,
+                    " ${clubCompany.company} is Following",
+                    Toast.LENGTH_SHORT
+                ).show()*/
                 followView.setImageResource(R.drawable.ic_following_red_900_24dp)
             } else {
+               /* Toast.makeText(
+                    followView.context,
+                    "${clubCompany.company} is UnFollowed",
+                    Toast.LENGTH_SHORT
+                ).show()*/
                 followView.setImageResource(R.drawable.ic_follow_black_24dp)
             }
         }
 
         /** Update the ui only not updated to server  **/
-        private fun setFav(isFav: Boolean, followView: ImageView) {
-            if (isFav) {
-                followView.setImageResource(R.drawable.ic_favorite_24dp)
+        private fun setFav(clubCompany: ClubCompany, favView: ImageView) {
+            if (clubCompany.isFav) {
+                /*Toast.makeText(
+                    favView.context,
+                    "${clubCompany.company} Favorite",
+                    Toast.LENGTH_SHORT
+                ).show()*/
+                favView.setImageResource(R.drawable.ic_favorite_24dp)
             } else {
-                followView.setImageResource(R.drawable.ic_favorite_border_black_24dp)
+                /*Toast.makeText(
+                    favView.context,
+                    "${clubCompany.company} UnFavorite",
+                    Toast.LENGTH_SHORT
+                ).show()*/
+                favView.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
         }
     }
