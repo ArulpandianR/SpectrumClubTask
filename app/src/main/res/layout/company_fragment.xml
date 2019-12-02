@@ -10,7 +10,7 @@
 
         <variable
             name="clubViewModel"
-            type="com.spectrum.task.ui.main.ClubViewModel" />
+            type="com.spectrum.task.main.CompanyViewModel" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

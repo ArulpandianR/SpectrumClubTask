@@ -76,18 +76,9 @@ class CompanyAdapter : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
         /** Update the ui only not updated to server  **/
         private fun setFollow(clubCompany: ClubCompany, followView: ImageView) {
             if (clubCompany.isfollowed) {
-              /*  Toast.makeText(
-                    followView.context,
-                    " ${clubCompany.company} is Following",
-                    Toast.LENGTH_SHORT
-                ).show()*/
+
                 followView.setImageResource(R.drawable.ic_following_red_900_24dp)
             } else {
-               /* Toast.makeText(
-                    followView.context,
-                    "${clubCompany.company} is UnFollowed",
-                    Toast.LENGTH_SHORT
-                ).show()*/
                 followView.setImageResource(R.drawable.ic_follow_black_24dp)
             }
         }
@@ -95,18 +86,8 @@ class CompanyAdapter : RecyclerView.Adapter<CompanyAdapter.ViewHolder>() {
         /** Update the ui only not updated to server  **/
         private fun setFav(clubCompany: ClubCompany, favView: ImageView) {
             if (clubCompany.isFav) {
-                /*Toast.makeText(
-                    favView.context,
-                    "${clubCompany.company} Favorite",
-                    Toast.LENGTH_SHORT
-                ).show()*/
                 favView.setImageResource(R.drawable.ic_favorite_24dp)
             } else {
-                /*Toast.makeText(
-                    favView.context,
-                    "${clubCompany.company} UnFavorite",
-                    Toast.LENGTH_SHORT
-                ).show()*/
                 favView.setImageResource(R.drawable.ic_favorite_border_black_24dp)
             }
         }

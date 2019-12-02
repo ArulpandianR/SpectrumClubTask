@@ -13,5 +13,6 @@ data class Member(
     @SerializedName("name")
     var name: Name,
     @SerializedName("phone")
-    var phone: String
+    var phone: String,
+    var isFav: Boolean = false
 )

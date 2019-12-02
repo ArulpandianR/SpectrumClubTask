@@ -1,4 +1,4 @@
-package com.spectrum.task.ui.main
+package com.spectrum.task.main
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,20 +9,21 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import com.spectrum.task.ClubHomeActivity
 import com.spectrum.task.R
 import com.spectrum.task.adapter.CompanyAdapter
-import com.spectrum.task.databinding.ClubFragmentBinding
-import kotlinx.android.synthetic.main.club_fragment.*
-import kotlinx.android.synthetic.main.sort_layout.view.*
+import com.spectrum.task.databinding.CompanyFragmentBinding
+import kotlinx.android.synthetic.main.company_fragment.*
+import kotlinx.android.synthetic.main.company_sort_layout.view.*
 
-class ClubFragment : Fragment() {
+class CompanyFragment : Fragment() {
 
     companion object {
-        fun newInstance() = ClubFragment()
+        fun newInstance() = CompanyFragment()
     }
 
-    private lateinit var viewDataBinding: ClubFragmentBinding
-    private lateinit var viewModel: ClubViewModel
+    private lateinit var viewDataBinding: CompanyFragmentBinding
+    private lateinit var viewModel: CompanyViewModel
     private lateinit var companyAdapter: CompanyAdapter
 
     override fun onCreateView(
@@ -30,8 +31,8 @@ class ClubFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        viewModel = ClubViewModel(requireActivity().application)
-        viewDataBinding = ClubFragmentBinding.inflate(inflater, container, false).apply {
+        viewModel = CompanyViewModel(requireActivity().application)
+        viewDataBinding = CompanyFragmentBinding.inflate(inflater, container, false).apply {
             viewModel = viewModel
         }
         return viewDataBinding.root
@@ -40,7 +41,7 @@ class ClubFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setHasOptionsMenu(true)
-        viewModel = ViewModelProviders.of(this).get(ClubViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(CompanyViewModel::class.java)
         viewDataBinding.lifecycleOwner = this.viewLifecycleOwner
         setupListAdapter()
         setFilter()
@@ -133,7 +134,8 @@ class ClubFragment : Fragment() {
         /**
          * Inflate the dialog with custom view
          */
-        val mDialogView = LayoutInflater.from(requireActivity()).inflate(R.layout.sort_layout, null)
+        val mDialogView =
+            LayoutInflater.from(requireActivity()).inflate(R.layout.company_sort_layout, null)
         /**
          *  AlertDialogBuilder
          */
@@ -178,6 +180,10 @@ class ClubFragment : Fragment() {
                 ).show()
             }
         }
+    }
+
+    fun showMemberFragment() {
+        (requireActivity() as ClubHomeActivity).showMemberFragment()
     }
 
 

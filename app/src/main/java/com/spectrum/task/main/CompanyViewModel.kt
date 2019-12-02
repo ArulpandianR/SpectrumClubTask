@@ -1,4 +1,4 @@
-package com.spectrum.task.ui.main
+package com.spectrum.task.main
 
 import android.app.Application
 import android.widget.Toast
@@ -16,7 +16,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.coroutines.launch
 
 
-class ClubViewModel(application: Application) : AndroidViewModel(application) {
+class CompanyViewModel(application: Application) : AndroidViewModel(application) {
 
     private val compositeDisposable: CompositeDisposable = CompositeDisposable()
 
